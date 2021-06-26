@@ -10,8 +10,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.gson.Gson;
 import com.skripsi.pendeteksikebakaran.api.ApiBasic;
 import com.skripsi.pendeteksikebakaran.api.ApiGetRecent;
+import com.skripsi.pendeteksikebakaran.api.ApiSendFcm;
 import com.skripsi.pendeteksikebakaran.api.GetRecent;
 import com.skripsi.pendeteksikebakaran.api.rest.ErrorUtils;
 import com.skripsi.pendeteksikebakaran.api.rest.REST_Controller;
@@ -59,7 +61,8 @@ public class MainActivity extends ActivityFramework {
                 SharedPreferencesProvider.getInstance().get_pref_fcm_token(mActivity) == null){
             fcmToken();
         }
-        Log.e("ini_fcm:","ada-"+SharedPreferencesProvider.getInstance().get_pref_fcm_token(mActivity));
+        Log.e("ini_fcm:","ada- "+SharedPreferencesProvider.getInstance().get_pref_fcm_token(mActivity));
+        mengirimFcm();
         getData();
     }
 
@@ -69,7 +72,7 @@ public class MainActivity extends ActivityFramework {
 
         {
             Toast.makeText(MainActivity.this,"in runnable",Toast.LENGTH_SHORT).show();
-            MainActivity.this.mHandler.postDelayed(m_Runnable, 5000);
+            MainActivity.this.mHandler.postDelayed(m_Runnable, 5000); // 5 detik untuk refresh otomatis
             getData();
         }
 
@@ -146,6 +149,44 @@ public class MainActivity extends ActivityFramework {
                         SharedPreferencesProvider.getInstance().set_pref_fcm_token(mActivity, token);
                     }
                 });
+    }
+
+    public void mengirimFcm() {
+
+        final Map<String, RequestBody> data = new HashMap<>();
+        data.put("token", RequestBody.create(MediaType.parse("text/plain"), SharedPreferencesProvider.getInstance().get_pref_fcm_token(mActivity)));
+
+        mProgressDialog = UtilsDialog.showLoading(MainActivity.this, mProgressDialog);
+
+        REST_Controller.CLIENT.sendFcm(data).enqueue(new Callback<ApiSendFcm>() {
+            @Override
+            public void onResponse(Call<ApiSendFcm> call, Response<ApiSendFcm> response) {
+                UtilsDialog.dismissLoading(mProgressDialog);
+                if (response.isSuccessful()) {
+                    ApiSendFcm apiSendFcm = response.body();
+
+                    if (response.body().getSuccess() == false) {
+                        Log.e("GAGAL_FCM", "ini");
+                        UtilsDialog.showBasicDialog(mActivity, "OK", apiSendFcm.getMessage()).show();
+                    } else {
+                        Log.e("BERHASIL_FCM", "ini");
+                        Log.e("data_gson", "data_  " + data);
+
+                    }
+                } else {
+                    Log.e("Tiga", "Ada");
+                    UtilsDialog.showBasicDialog(mActivity, "OK", response.errorBody().toString()).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiSendFcm> call, Throwable t) {
+                Log.e("Empat", "Ada");
+                UtilsDialog.dismissLoading(mProgressDialog);
+                UtilsDialog.showBasicDialog(MainActivity.this, "OK", t.toString()).show();
+            }
+        });
+
     }
 
 }

@@ -3,6 +3,7 @@ package com.skripsi.pendeteksikebakaran.api.rest;
 import android.skripsi.pendeteksikebakaran.BuildConfig;
 
 import com.skripsi.pendeteksikebakaran.api.ApiGetRecent;
+import com.skripsi.pendeteksikebakaran.api.ApiSendFcm;
 import com.skripsi.pendeteksikebakaran.storage.Common;
 
 import com.google.gson.Gson;
@@ -10,6 +11,7 @@ import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.ConnectionSpec;
@@ -26,7 +28,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 
 public class REST_Controller {
     public static AlisanAPI CLIENT;
@@ -112,11 +116,13 @@ public class REST_Controller {
     }
 
     public interface AlisanAPI {
-        @POST(Common.SUB_PATH + "/update_token")
-        Call<ResponseBody> updateTokenDevice(@Body RequestBody requestBody);
 
         @GET(Common.SUB_PATH + "/get_recent")
         Call<ApiGetRecent> getData();
+
+        @Multipart
+        @POST(Common.SUB_PATH + "/save_fcm")
+        Call<ApiSendFcm> sendFcm(@PartMap Map<String, RequestBody> names);
 
     }
 }
