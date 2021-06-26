@@ -1,0 +1,2 @@
+rootProject.name = "Pendeteksi Kebakaran"
+include ':app'
