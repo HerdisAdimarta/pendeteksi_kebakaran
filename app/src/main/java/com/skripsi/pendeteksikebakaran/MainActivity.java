@@ -3,6 +3,7 @@ package com.skripsi.pendeteksikebakaran;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.skripsi.pendeteksikebakaran.R;
 
 import com.skripsi.pendeteksikebakaran.api.ApiBasic;
@@ -16,6 +17,7 @@ import com.skripsi.pendeteksikebakaran.utils.UtilsDialog;
 import android.text.Html;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +32,7 @@ import retrofit2.Response;
 
 public class MainActivity extends ActivityFramework {
     public static final String ACTION_NEW_TASK = "200";
+    Handler mHandler;
     ProgressDialog mProgressDialog;
     GetRecent dataAda;
     @BindView(R.id.tvApi)
@@ -42,11 +45,32 @@ public class MainActivity extends ActivityFramework {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        this.mHandler = new Handler();
+        this.mHandler.postDelayed(m_Runnable,5000);
         getData();
     }
 
+    private final Runnable m_Runnable = new Runnable()
+    {
+        public void run()
+
+        {
+            Toast.makeText(MainActivity.this,"in runnable",Toast.LENGTH_SHORT).show();
+            MainActivity.this.mHandler.postDelayed(m_Runnable, 5000);
+            getData();
+        }
+
+    };//runnable
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mHandler.removeCallbacks(m_Runnable);
+        finish();
+
+    }
     public void getData(){
-        mProgressDialog = UtilsDialog.showLoading(mActivity, mProgressDialog);
+//        mProgressDialog = UtilsDialog.showLoading(mActivity, mProgressDialog);
 
         REST_Controller.CLIENT.getData().enqueue(new Callback<ApiGetRecent>() {
             @Override
