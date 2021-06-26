@@ -1,0 +1,106 @@
+<resources>
+    <style name="ThemeFullscreen" parent="AppTheme"> true </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+    </style>
+
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_up_corner_rounded</item>
+    </style>
+    <style name="AppTheme2" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#414042</item>
+        <item name="colorPrimaryDark">#414042</item>
+        <item name="colorAccent">#414042</item>
+    </style>
+
+    <style name="AppTheme3" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#0066C8</item>
+        <item name="colorPrimaryDark">#0066C8</item>
+        <item name="colorAccent">#0066C8</item>
+    </style>
+
+    <style name="TvNFontLarger">
+        <item name="android:textSize">@dimen/font_larger</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorGray2</item>
+    </style>
+
+    <style name="TvNFontLarge">
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorGray2</item>
+    </style>
+
+    <style name="TvNFontNormal">
+        <item name="android:textSize">@dimen/font_normal</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorGray2</item>
+    </style>
+
+    <style name="TvNFontSmall">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorGray2</item>
+    </style>
+
+    <style name="TvNFontVerySmall">
+        <item name="android:textSize">@dimen/font_very_small</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorGray2</item>
+    </style>
+
+    <style name="TvBFontLarger">
+        <item name="android:textSize">@dimen/font_larger</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorGray2</item>
+    </style>
+
+    <style name="TvBFontLarge">
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorGray2</item>
+    </style>
+
+    <style name="TvBFontNormal">
+        <item name="android:textSize">@dimen/font_normal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorGray2</item>
+    </style>
+
+    <style name="TvBFontSmall">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorGray2</item>
+    </style>
+
+    <style name="TvBFontVerySmall">
+        <item name="android:textSize">@dimen/font_very_small</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorGray2</item>
+    </style>
+
+</resources>

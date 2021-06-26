@@ -1,0 +1,27 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- sliding Menu -->
+    <dimen name="slidingmenu_offset">60dp</dimen>
+    <dimen name="list_padding">10dp</dimen>
+    <dimen name="shadow_width">15dp</dimen>
+    <integer name="num_cols">1</integer>
+
+    <!-- hight sizes -->
+    <dimen name="height_button">37dp</dimen>
+    <!-- font sizes -->
+    <dimen name="font_larger">22sp</dimen>
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_normal">15sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="font_very_small">9sp</dimen>
+
+
+    <!-- icon sizes -->
+    <dimen name="icon_small">16sp</dimen>
+    <dimen name="icon_normal">24sp</dimen>
+    <dimen name="icon_large">36sp</dimen>
+    <dimen name="icon_larger">48sp</dimen>
+</resources>
