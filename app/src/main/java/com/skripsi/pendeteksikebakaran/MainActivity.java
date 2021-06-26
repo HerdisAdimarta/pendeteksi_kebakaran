@@ -71,7 +71,6 @@ public class MainActivity extends ActivityFramework {
         public void run()
 
         {
-            Toast.makeText(MainActivity.this,"in runnable",Toast.LENGTH_SHORT).show();
             MainActivity.this.mHandler.postDelayed(m_Runnable, 5000); // 5 detik untuk refresh otomatis
             getData();
         }
