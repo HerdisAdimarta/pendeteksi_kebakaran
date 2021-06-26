@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "636037314871",
+    "project_id": "testing-f31b4",
+    "storage_bucket": "testing-f31b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636037314871:android:95fbb7c43a2065353d42b2",
+        "android_client_info": {
+          "package_name": "android.skripsi.pendeteksikebakaran"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636037314871-n29p34h6hpb3oag7n4jf9qo2t1lm8e39.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-zY3RgoH_eYfTSCQdti8GwC88x7NAU6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636037314871-n29p34h6hpb3oag7n4jf9qo2t1lm8e39.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

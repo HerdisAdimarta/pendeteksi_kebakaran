@@ -1,39 +1,149 @@
-plugins {
-    id 'com.android.application'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def flavor = variant.productFlavors[0].name.capitalize()
+            def version = variant.versionName
+            def date = new Date()
+            def formattedDate = date.format('ddMMyy')
+            outputFileName = "PendeteksiKebakaran${flavor}${version}_${formattedDate}.apk"
+        }
+    }
     compileSdkVersion 30
-    buildToolsVersion "30.0.3"
-
     defaultConfig {
         applicationId "android.skripsi.pendeteksikebakaran"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionName "1.0.1"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        multiDexEnabled true
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    dexOptions {
+        jumboMode = true
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", "Pendeteksi Kebakaran"
+            //signingConfig signingConfigs.release
+//            shrinkResources true
+        }
+
+        debug {
+//            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "Pendeteksi Kebakaran DEV"
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+    flavorDimensions "default"
+
+    productFlavors {
+        dev {
+            versionName "1.1.1"
+            dimension "default"
+            minSdkVersion 19
+//            buildConfigField("String", "BASE_URL", "\"http://andtechnology.me\"")
+//            buildConfigField("String", "SUB_PATH", "\"/plus_phone/member\"")
+            buildConfigField("String", "BASE_URL", "\"https://development.tradeinplus.id/plus_phone/\"")
+            buildConfigField("String", "SUB_PATH", "\"members\"")
+        }
+        prod {
+            versionName "1.1.2"
+            dimension "default"
+            proguardFile 'flavor2-rules.pro'
+            minSdkVersion 19
+            buildConfigField("String", "BASE_URL", "\"https://admin.tradeinplus.id/\"")
+            buildConfigField("String", "SUB_PATH", "\"members\"")
+        }
     }
 }
-
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+        mavenCentral()
+        google()
+    }
+}
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'org.greenrobot:eventbus:3.2.0'
+
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+//    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation 'com.scottyab:rootbeer-lib:0.0.8'
+
+//network
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation "com.github.anshulagarwal06:Simplify-Permissions:v1"
+
+    implementation 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly "javax.annotation:jsr250-api:1.0"
+    implementation 'org.jsoup:jsoup:1.13.1'
+    implementation 'org.parceler:parceler-api:1.1.13'
+    annotationProcessor 'org.parceler:parceler:1.1.13'
+
+    implementation 'com.github.paramsen:noise:0.7.1'
+    implementation 'com.github.nisrulz:zentone:1.0.3'
+    implementation 'com.soundcloud.android:android-crop:1.0.1@aar'
+    implementation 'com.google.zxing:core:3.2.1'
+    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+    implementation 'io.github.memfis19:annca:0.3.7'
+
+    implementation 'com.google.zxing:core:3.2.1'
+    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-core:18.0.2'
+
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+    implementation 'com.github.Mika-89:Screenshot:master-SNAPSHOT'
+//    implementation 'com.github.jrvansuita:PickImage:2.5.2'
+
+    //scan
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
+
 }

@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Pendeteksi Kebakaran</string>
+    <string name="check_connection">Mohon periksa kembali koneksi internet anda.</string>
+    <string name="check_server_connection">Sorry, server could not process your request, Please try again later.</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_notification_channel_name">News</string>
+
 </resources>
