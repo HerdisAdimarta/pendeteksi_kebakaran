@@ -64,9 +64,6 @@ public abstract class ActivityFramework extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         initializeSystem();
         initWindow();
-        //disable chapture
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     private void initWindow() {

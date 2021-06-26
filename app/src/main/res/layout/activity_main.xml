@@ -26,8 +26,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:gravity="center"
-                android:text="Alat Pendeksi kebakaran\nBerbasis Mikrokontroler\nMenggunakan Flame Sensor dan\nSensor MQ-2 dengan Notifikasi\nAplikasi Berbasis Android\nPada SMA Muhammadiyah 1\nTanggerang"/>
+                android:text="ALAT PENDETEKSI KEBAKARAN BERBASIS NODEMCU MENGGUNAKAN SENSOR ASAP MQ2 DAN FLAME SENSOR SERTA NOTIFIKASI VIA ANDROID PADA BENGKEL D-ONE GARAGE"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
