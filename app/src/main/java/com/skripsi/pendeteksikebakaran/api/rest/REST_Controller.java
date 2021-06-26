@@ -2,12 +2,11 @@ package com.skripsi.pendeteksikebakaran.api.rest;
 
 import android.skripsi.pendeteksikebakaran.BuildConfig;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.skripsi.pendeteksikebakaran.api.ApiGetRecent;
 import com.skripsi.pendeteksikebakaran.api.ApiSendFcm;
 import com.skripsi.pendeteksikebakaran.storage.Common;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -20,13 +19,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
