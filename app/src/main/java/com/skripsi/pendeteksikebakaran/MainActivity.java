@@ -52,15 +52,14 @@ public class MainActivity extends ActivityFramework {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        this.mHandler = new Handler();
+        this.mHandler.postDelayed(m_Runnable,5000);
         fcmToken();
         if(SharedPreferencesProvider.getInstance().get_pref_fcm_token(mActivity).isEmpty() ||
                 SharedPreferencesProvider.getInstance().get_pref_fcm_token(mActivity) == null){
             fcmToken();
         }
         Log.e("ini_fcm:","ada-"+SharedPreferencesProvider.getInstance().get_pref_fcm_token(mActivity));
-
-        this.mHandler = new Handler();
-        this.mHandler.postDelayed(m_Runnable,5000);
         getData();
     }
 
