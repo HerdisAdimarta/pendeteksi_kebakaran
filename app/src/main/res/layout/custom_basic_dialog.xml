@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorWhite"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingTop="30dp"
+    android:paddingRight="30dp">
+
+    <ImageView
+        android:id="@+id/ivDialogImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:src="@drawable/ic_budi_luhur"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tvDialogMessage"
+        style="@style/TvNFontNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="@dimen/icon_large"
+        android:gravity="center"
+        android:minWidth="200dp"
+        android:text="@string/app_name"
+        android:textColor="@color/colorBlack"/>
+
+    <Button
+        android:id="@+id/btDialogClose"
+        style="@style/TvBFontNormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimary"
+        android:text="TUTUP"
+        android:textColor="@color/colorWhite"/>
+
+</LinearLayout>

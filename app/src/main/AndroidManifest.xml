@@ -34,7 +34,7 @@
         android:required="false" />
 
     <application
-        android:name=".storage.ApplicationExt"
+        android:name="com.skripsi.pendeteksikebakaran.storage.ApplicationExt"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -74,7 +74,7 @@
         </provider>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.skripsi.pendeteksikebakaran.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -84,14 +84,14 @@
             </intent-filter>
         </activity>
         <service
-            android:name=".utils.MyFirebaseMessagingService"
+            android:name="com.skripsi.pendeteksikebakaran.utils.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service> <!-- Declaring broadcast receiver for BOOT_COMPLETED event. -->
         <receiver
-            android:name=".utils.MyReceiver"
+            android:name="com.skripsi.pendeteksikebakaran.utils.MyReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
