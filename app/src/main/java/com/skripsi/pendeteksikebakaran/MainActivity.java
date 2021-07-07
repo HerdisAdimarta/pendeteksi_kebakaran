@@ -1,17 +1,27 @@
 package com.skripsi.pendeteksikebakaran;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.skripsi.pendeteksikebakaran.R;
 import android.util.Log;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.skripsi.pendeteksikebakaran.api.ApiBasic;
+import com.skripsi.pendeteksikebakaran.api.ApiControl;
 import com.skripsi.pendeteksikebakaran.api.ApiGetRecent;
 import com.skripsi.pendeteksikebakaran.api.ApiSendFcm;
 import com.skripsi.pendeteksikebakaran.api.GetRecent;
@@ -26,6 +36,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import lombok.NonNull;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -39,6 +50,12 @@ public class MainActivity extends ActivityFramework {
     Handler mHandler;
     ProgressDialog mProgressDialog;
     GetRecent dataAda;
+    @BindView(R.id.simpleSwitch)
+    Switch simpleSwitch;
+    @BindView(R.id.llApi)
+    LinearLayout llApi;
+    @BindView(R.id.llAsap)
+    LinearLayout llAsap;
     @BindView(R.id.tvApi)
     TextView tvApi;
     @BindView(R.id.tvAsap)
@@ -58,7 +75,32 @@ public class MainActivity extends ActivityFramework {
         }
         Log.e("ini_fcm:","ada- "+SharedPreferencesProvider.getInstance().get_pref_fcm_token(mActivity));
         mengirimFcm();
+        switchOnOff();
+        gantiSatus();
         getData();
+    }
+
+    private void switchOnOff() {
+        simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    SharedPreferencesProvider.getInstance().set_pref_controller(mActivity, "1");
+                    Log.e("ULALA", SharedPreferencesProvider.getInstance().get_pref_controller(mActivity));
+                    Toast.makeText(MainActivity.this, "ON", Toast.LENGTH_SHORT).show();
+                    llApi.setVisibility(View.VISIBLE);
+                    llAsap.setVisibility(View.VISIBLE);
+                }
+                if (!isChecked) {
+                    SharedPreferencesProvider.getInstance().set_pref_controller(mActivity, "0");
+                    Log.e("ULALA", SharedPreferencesProvider.getInstance().get_pref_controller(mActivity));
+                    Toast.makeText(MainActivity.this, "OFF", Toast.LENGTH_SHORT).show();
+                    llApi.setVisibility(View.GONE);
+                    llAsap.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
 
     private final Runnable m_Runnable = new Runnable()
@@ -175,6 +217,42 @@ public class MainActivity extends ActivityFramework {
 
             @Override
             public void onFailure(Call<ApiSendFcm> call, Throwable t) {
+                Log.e("Empat", "Ada");
+                UtilsDialog.dismissLoading(mProgressDialog);
+                UtilsDialog.showBasicDialog(MainActivity.this, "OK", t.toString()).show();
+            }
+        });
+
+    }
+
+    public void gantiSatus() {
+        final Map<String, RequestBody> data = new HashMap<>();
+        data.put("status", RequestBody.create(MediaType.parse("text/plain"), SharedPreferencesProvider.getInstance().get_pref_controller(mActivity)));
+
+        mProgressDialog = UtilsDialog.showLoading(MainActivity.this, mProgressDialog);
+
+        REST_Controller.CLIENT.setControl(data).enqueue(new Callback<ApiControl>() {
+            @Override
+            public void onResponse(Call<ApiControl> call, Response<ApiControl> response) {
+                UtilsDialog.dismissLoading(mProgressDialog);
+                if (response.isSuccessful()) {
+
+                    if (response.body().getSuccess() == true) {
+                        Log.e("STATUS", "off");
+
+                    }
+                    if (response.body().getSuccess() == false) {
+                        Log.e("STATUS", "on");
+
+                    }
+                } else {
+                    Log.e("Tiga", "Ada");
+                    UtilsDialog.showBasicDialog(mActivity, "OK", response.errorBody().toString()).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiControl> call, Throwable t) {
                 Log.e("Empat", "Ada");
                 UtilsDialog.dismissLoading(mProgressDialog);
                 UtilsDialog.showBasicDialog(MainActivity.this, "OK", t.toString()).show();

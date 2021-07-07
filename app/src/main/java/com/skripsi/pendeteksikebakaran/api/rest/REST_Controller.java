@@ -4,6 +4,7 @@ import android.skripsi.pendeteksikebakaran.BuildConfig;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.skripsi.pendeteksikebakaran.api.ApiControl;
 import com.skripsi.pendeteksikebakaran.api.ApiGetRecent;
 import com.skripsi.pendeteksikebakaran.api.ApiSendFcm;
 import com.skripsi.pendeteksikebakaran.storage.Common;
@@ -120,6 +121,10 @@ public class REST_Controller {
         @Multipart
         @POST(Common.SUB_PATH + "/save_fcm")
         Call<ApiSendFcm> sendFcm(@PartMap Map<String, RequestBody> names);
+
+        @Multipart
+        @POST(Common.SUB_PATH + "/control")
+        Call<ApiControl> setControl(@PartMap Map<String, RequestBody> names);
 
     }
 }

@@ -15,6 +15,7 @@ public class SharedPreferencesProvider {
 
     private final String pref_id_user = "pref_id_user";
     private final String pref_fcm_token = "pref_fcm_token";
+    private final String pref_controller = "pref_controller";
 
     public void clearSession(Context context){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -44,6 +45,18 @@ public class SharedPreferencesProvider {
     public String get_pref_fcm_token(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(pref_fcm_token, "");
+    }
+
+    public void set_pref_controller(Context context, String datas) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        editor = preferences.edit();
+        editor.putString(pref_controller, datas);
+        editor.commit();
+    }
+
+    public String get_pref_controller(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(pref_controller, "");
     }
 
 }
