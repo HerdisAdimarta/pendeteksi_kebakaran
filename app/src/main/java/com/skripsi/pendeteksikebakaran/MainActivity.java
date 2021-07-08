@@ -76,7 +76,6 @@ public class MainActivity extends ActivityFramework {
         Log.e("ini_fcm:","ada- "+SharedPreferencesProvider.getInstance().get_pref_fcm_token(mActivity));
         mengirimFcm();
         switchOnOff();
-        gantiSatus();
         getData();
     }
 
@@ -85,15 +84,18 @@ public class MainActivity extends ActivityFramework {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    SharedPreferencesProvider.getInstance().set_pref_controller(mActivity, "1");
-                    Log.e("ULALA", SharedPreferencesProvider.getInstance().get_pref_controller(mActivity));
+                    settingController(false);
+                    gantiSatus();
+                    Log.e("ULALA", String.valueOf(SharedPreferencesProvider.getInstance().get_pref_controller(mActivity)));
                     Toast.makeText(MainActivity.this, "ON", Toast.LENGTH_SHORT).show();
                     llApi.setVisibility(View.VISIBLE);
                     llAsap.setVisibility(View.VISIBLE);
+
                 }
                 if (!isChecked) {
-                    SharedPreferencesProvider.getInstance().set_pref_controller(mActivity, "0");
-                    Log.e("ULALA", SharedPreferencesProvider.getInstance().get_pref_controller(mActivity));
+                    settingController(true);
+                    gantiSatus();
+                    Log.e("ULALA", String.valueOf(SharedPreferencesProvider.getInstance().get_pref_controller(mActivity)));
                     Toast.makeText(MainActivity.this, "OFF", Toast.LENGTH_SHORT).show();
                     llApi.setVisibility(View.GONE);
                     llAsap.setVisibility(View.GONE);
@@ -227,7 +229,12 @@ public class MainActivity extends ActivityFramework {
 
     public void gantiSatus() {
         final Map<String, RequestBody> data = new HashMap<>();
-        data.put("status", RequestBody.create(MediaType.parse("text/plain"), SharedPreferencesProvider.getInstance().get_pref_controller(mActivity)));
+        Log.e("ADA_NICH", String.valueOf(SharedPreferencesProvider.getInstance().get_pref_controller(mActivity)));
+        if (SharedPreferencesProvider.getInstance().get_pref_controller(mActivity)) {
+            data.put("status", RequestBody.create(MediaType.parse("text/plain"), "1"));
+        } else {
+            data.put("status", RequestBody.create(MediaType.parse("text/plain"), "0"));
+        }
 
         mProgressDialog = UtilsDialog.showLoading(MainActivity.this, mProgressDialog);
 
@@ -236,14 +243,17 @@ public class MainActivity extends ActivityFramework {
             public void onResponse(Call<ApiControl> call, Response<ApiControl> response) {
                 UtilsDialog.dismissLoading(mProgressDialog);
                 if (response.isSuccessful()) {
+                    ApiControl apiControl = response.body();
 
-                    if (response.body().getSuccess() == true) {
-                        Log.e("STATUS", "off");
-
-                    }
                     if (response.body().getSuccess() == false) {
-                        Log.e("STATUS", "on");
+                        Log.e("STATUS1", ": " +apiControl.getSuccess());
+                        Log.e("NYALA", String.valueOf(SharedPreferencesProvider.getInstance().get_pref_controller(mActivity)));
+                        UtilsDialog.showBasicDialog(mActivity, "OK", apiControl.getMessage()).show();
 
+                    } else {
+                        Log.e("STATUS2", ": " +apiControl.getSuccess());
+                        Log.e("KAGAK", String.valueOf(SharedPreferencesProvider.getInstance().get_pref_controller(mActivity)));
+                        UtilsDialog.showBasicDialog(mActivity, "OK", apiControl.getMessage()).show();
                     }
                 } else {
                     Log.e("Tiga", "Ada");
@@ -260,5 +270,10 @@ public class MainActivity extends ActivityFramework {
         });
 
     }
+
+    public void settingController(final Boolean bol) {
+        SharedPreferencesProvider.getInstance().set_pref_controller(mActivity, bol);
+    }
+
 
 }

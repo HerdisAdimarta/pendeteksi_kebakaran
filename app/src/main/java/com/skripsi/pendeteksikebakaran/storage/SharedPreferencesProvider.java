@@ -47,16 +47,16 @@ public class SharedPreferencesProvider {
         return preferences.getString(pref_fcm_token, "");
     }
 
-    public void set_pref_controller(Context context, String datas) {
+    public void set_pref_controller(Context context, boolean datas) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         editor = preferences.edit();
-        editor.putString(pref_controller, datas);
+        editor.putBoolean(pref_controller, datas);
         editor.commit();
     }
 
-    public String get_pref_controller(Context context) {
+    public boolean get_pref_controller(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getString(pref_controller, "");
+        return preferences.getBoolean(pref_controller, false);
     }
 
 }
