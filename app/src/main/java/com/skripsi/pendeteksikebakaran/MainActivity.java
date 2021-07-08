@@ -248,12 +248,12 @@ public class MainActivity extends ActivityFramework {
                     if (response.body().getSuccess() == false) {
                         Log.e("STATUS1", ": " +apiControl.getSuccess());
                         Log.e("NYALA", String.valueOf(SharedPreferencesProvider.getInstance().get_pref_controller(mActivity)));
-                        UtilsDialog.showBasicDialog(mActivity, "OK", apiControl.getMessage()).show();
+//                        UtilsDialog.showBasicDialog(mActivity, "OK", apiControl.getMessage()).show();
 
                     } else {
                         Log.e("STATUS2", ": " +apiControl.getSuccess());
                         Log.e("KAGAK", String.valueOf(SharedPreferencesProvider.getInstance().get_pref_controller(mActivity)));
-                        UtilsDialog.showBasicDialog(mActivity, "OK", apiControl.getMessage()).show();
+//                        UtilsDialog.showBasicDialog(mActivity, "OK", apiControl.getMessage()).show();
                     }
                 } else {
                     Log.e("Tiga", "Ada");
